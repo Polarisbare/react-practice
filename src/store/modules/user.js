@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:31:40
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 11:28:45
+ * @LastEditTime: 2024-03-06 11:36:00
  * @FilePath: /react-practice/src/store/modules/user.js
  * @Description: 用户相关
  */
@@ -12,12 +12,14 @@ const userStore = createSlice({
   name: "user",
   // 数据状态
   initialState: {
-    token: "",
+    token: localStorage.getItem("token_key") || "",
   },
   // 同步修改方法
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
+      // 本地存一份
+      localStorage.setItem("token_key", action.payload);
     },
   },
 });
