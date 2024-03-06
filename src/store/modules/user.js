@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:31:40
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 10:58:52
+ * @LastEditTime: 2024-03-06 11:28:45
  * @FilePath: /react-practice/src/store/modules/user.js
  * @Description: 用户相关
  */
@@ -40,6 +40,6 @@ const fetchLogin = (loginForm) => {
   };
 };
 
-export { setToken, fetchLogin };
+export { fetchLogin, setToken };
 
 export default userReducer;

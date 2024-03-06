@@ -2,15 +2,15 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:05:09
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 10:45:55
+ * @LastEditTime: 2024-03-06 11:25:25
  * @FilePath: /react-practice/src/pages/Login/index.js
  * @Description: Login
  */
 import { Card, Form, Input, Checkbox, Button } from "antd";
 import logo from "@/assets/logo.png";
 import "./index.scss";
-import { useDispatch } from "react-redux";
 import { fetchLogin } from "@/store/modules/user";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();

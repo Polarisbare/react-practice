@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:18:41
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 10:47:20
+ * @LastEditTime: 2024-03-06 11:05:19
  * @FilePath: /react-practice/src/utils/request.js
  * @Description:  axios封装
  */
@@ -31,7 +31,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     // Do something before response is sent
-    return response;
+    return response.data;
   },
   (error) => {
     // Do something with response error
