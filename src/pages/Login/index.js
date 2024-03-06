@@ -2,21 +2,26 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:05:09
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 11:25:25
+ * @LastEditTime: 2024-03-06 11:31:35
  * @FilePath: /react-practice/src/pages/Login/index.js
  * @Description: Login
  */
-import { Card, Form, Input, Checkbox, Button } from "antd";
+import { Card, Form, Input, Checkbox, Button, message } from "antd";
 import logo from "@/assets/logo.png";
 import "./index.scss";
 import { fetchLogin } from "@/store/modules/user";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const onFinish = (values) => {
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
     console.log("=========>", values);
-    dispatch(fetchLogin(values));
+    await dispatch(fetchLogin(values));
+    // 跳转首页并提示
+    navigate("/");
+    message.success("登录成功");
   };
   return (
     <div className="login">
