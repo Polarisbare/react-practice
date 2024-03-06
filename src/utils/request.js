@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:18:41
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 10:22:27
+ * @LastEditTime: 2024-03-06 10:47:20
  * @FilePath: /react-practice/src/utils/request.js
  * @Description:  axios封装
  */
@@ -38,3 +38,4 @@ request.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+export { request };
