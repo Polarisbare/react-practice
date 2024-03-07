@@ -2,12 +2,13 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:18:41
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 11:05:19
+ * @LastEditTime: 2024-03-07 09:22:38
  * @FilePath: /react-practice/src/utils/request.js
  * @Description:  axios封装
  */
 // axios 封装
 import axios from "axios";
+import { getToken } from "./token";
 
 // 1. 跟域名配置
 // 2. 超时时间
@@ -20,6 +21,12 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     // Do something before request is sent
+    // 操作config注入token
+    // 1获取token 2拼接
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
