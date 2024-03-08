@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:04:51
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-08 09:32:22
+ * @LastEditTime: 2024-03-08 09:35:42
  * @FilePath: /react-practice/src/pages/Layout/index.js
  * @Description: Layout
  */
@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import "./index.scss";
 import "normalize.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const { Header, Sider } = Layout;
 
@@ -44,6 +44,9 @@ const GeekLayout = () => {
     console.log("=========>v", v);
     navigator(v.key);
   };
+  // 反向高亮
+  const location = useLocation();
+  const selectedKeys = location.pathname;
 
   return (
     <Layout>
@@ -63,7 +66,7 @@ const GeekLayout = () => {
           <Menu
             mode="inline"
             theme="dark"
-            defaultSelectedKeys={["/"]}
+            selectedKeys={selectedKeys}
             items={items}
             onClick={onMenuClick}
             style={{ height: "100%", borderRight: 0 }}
