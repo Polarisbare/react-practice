@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:04:51
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-08 09:13:35
+ * @LastEditTime: 2024-03-08 09:21:07
  * @FilePath: /react-practice/src/pages/Layout/index.js
  * @Description: Layout
  */
@@ -16,6 +16,7 @@ import {
 } from "@ant-design/icons";
 import "./index.scss";
 import "normalize.css";
+import { Outlet } from "react-router-dom";
 
 const { Header, Sider } = Layout;
 
@@ -62,7 +63,8 @@ const GeekLayout = () => {
           ></Menu>
         </Sider>
         <Layout className="layout-content" style={{ padding: 20 }}>
-          内容
+          {/* 二级路由出口 */}
+          <Outlet />
         </Layout>
       </Layout>
     </Layout>
