@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:04:51
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-08 09:21:07
+ * @LastEditTime: 2024-03-08 09:32:22
  * @FilePath: /react-practice/src/pages/Layout/index.js
  * @Description: Layout
  */
@@ -16,29 +16,35 @@ import {
 } from "@ant-design/icons";
 import "./index.scss";
 import "normalize.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const { Header, Sider } = Layout;
 
 const items = [
   {
     label: "首页",
-    key: "1",
+    key: "/",
     icon: <HomeOutlined />,
   },
   {
     label: "文章管理",
-    key: "2",
+    key: "/article",
     icon: <DiffOutlined />,
   },
   {
     label: "创建文章",
-    key: "3",
+    key: "/publish",
     icon: <EditOutlined />,
   },
 ];
 
 const GeekLayout = () => {
+  const navigator = useNavigate();
+  const onMenuClick = (v) => {
+    console.log("=========>v", v);
+    navigator(v.key);
+  };
+
   return (
     <Layout>
       <Header className="header">
@@ -57,8 +63,9 @@ const GeekLayout = () => {
           <Menu
             mode="inline"
             theme="dark"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["/"]}
             items={items}
+            onClick={onMenuClick}
             style={{ height: "100%", borderRight: 0 }}
           ></Menu>
         </Sider>
