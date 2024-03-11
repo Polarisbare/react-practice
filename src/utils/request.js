@@ -2,13 +2,14 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:18:41
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-07 09:22:38
+ * @LastEditTime: 2024-03-11 09:23:54
  * @FilePath: /react-practice/src/utils/request.js
  * @Description:  axios封装
  */
 // axios 封装
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
 
 // 1. 跟域名配置
 // 2. 超时时间
@@ -42,6 +43,13 @@ request.interceptors.response.use(
   },
   (error) => {
     // Do something with response error
+    // 监控401 token失效
+    console.dir(error);
+    if (error.response.status === 401) {
+      removeToken();
+      router.navigate("/login");
+      window.location.reload();
+    }
     return Promise.reject(error);
   }
 );
