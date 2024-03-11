@@ -2,13 +2,13 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:31:40
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-11 08:51:43
+ * @LastEditTime: 2024-03-11 09:03:21
  * @FilePath: /react-practice/src/store/modules/user.js
  * @Description: 用户相关
  */
 import { createSlice } from "@reduxjs/toolkit";
 import { request } from "@/utils";
-import { setToken as _setToken, getToken } from "@/utils";
+import { setToken as _setToken, getToken, removeToken } from "@/utils";
 const userStore = createSlice({
   name: "user",
   // 数据状态
@@ -24,14 +24,21 @@ const userStore = createSlice({
       // localStorage.setItem("token_key", action.payload);
       _setToken(action.payload);
     },
+    // 存用户数据
     setUserInfo(state, action) {
       state.userInfo = action.payload;
+    },
+    // 清除用户数据
+    clearUserInfo(state) {
+      state.token = "";
+      state.userInfo = {};
+      removeToken();
     },
   },
 });
 
 // 解构出actionCreater方法
-const { setToken, setUserInfo } = userStore.actions;
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions;
 
 // 获取reducer函数
 const userReducer = userStore.reducer;
@@ -53,6 +60,6 @@ const fetchUserInfo = (loginForm) => {
   };
 };
 
-export { fetchLogin, setToken, fetchUserInfo };
+export { fetchLogin, setToken, fetchUserInfo, clearUserInfo };
 
 export default userReducer;

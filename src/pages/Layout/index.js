@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:04:51
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-11 08:57:40
+ * @LastEditTime: 2024-03-11 09:06:27
  * @FilePath: /react-practice/src/pages/Layout/index.js
  * @Description: Layout
  */
@@ -19,7 +19,7 @@ import "normalize.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserInfo } from "@/store/modules/user";
+import { fetchUserInfo, clearUserInfo } from "@/store/modules/user";
 
 const { Header, Sider } = Layout;
 
@@ -42,10 +42,10 @@ const items = [
 ];
 
 const GeekLayout = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const onMenuClick = (v) => {
     console.log("=========>v", v);
-    navigator(v.key);
+    navigate(v.key);
   };
   // 反向高亮
   const location = useLocation();
@@ -55,6 +55,11 @@ const GeekLayout = () => {
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [dispatch]);
+  // 退出毁掉
+  const onConfirm = () => {
+    dispatch(clearUserInfo());
+    navigate("/login");
+  };
 
   const name = useSelector((state) => state.user.userInfo.name);
   return (
@@ -64,7 +69,12 @@ const GeekLayout = () => {
         <div className="user-info">
           <span className="user-name">{name}</span>
           <span className="user-logout">
-            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
+            <Popconfirm
+              title="是否确认退出？"
+              okText="退出"
+              cancelText="取消"
+              onConfirm={onConfirm}
+            >
               <LogoutOutlined /> 退出
             </Popconfirm>
           </span>
