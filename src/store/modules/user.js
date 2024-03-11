@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:31:40
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-08 09:40:31
+ * @LastEditTime: 2024-03-11 08:51:43
  * @FilePath: /react-practice/src/store/modules/user.js
  * @Description: 用户相关
  */
@@ -31,7 +31,7 @@ const userStore = createSlice({
 });
 
 // 解构出actionCreater方法
-const { setToken } = userStore.actions;
+const { setToken, setUserInfo } = userStore.actions;
 
 // 获取reducer函数
 const userReducer = userStore.reducer;
@@ -41,13 +41,18 @@ const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     // 1.发送异步请求
     const res = await request.post("/authorizations", loginForm);
-    console.log("=========>res", res);
-
     // 2.提交同步actions进行token的存入
     dispatch(setToken(res.data.token));
   };
 };
+// 异步方法 获取个人信息
+const fetchUserInfo = (loginForm) => {
+  return async (dispatch) => {
+    const res = await request.get("/user/profile");
+    dispatch(setUserInfo(res.data));
+  };
+};
 
-export { fetchLogin, setToken };
+export { fetchLogin, setToken, fetchUserInfo };
 
 export default userReducer;
