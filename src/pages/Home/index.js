@@ -2,28 +2,29 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:16:15
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-11 09:40:00
+ * @LastEditTime: 2024-03-11 09:45:32
  * @FilePath: /react-practice/src/pages/Home/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import * as echarts from "echarts";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Home = () => {
+  const chartRef = useRef(null);
   useEffect(() => {
-    const chartDom = document.getElementById("main");
+    const chartDom = chartRef.current;
     const myChart = echarts.init(chartDom);
     const option = {
       xAxis: {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: ["Vue", "React", "Go"],
       },
       yAxis: {
         type: "value",
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [10, 40, 70, 80, 100, 110, 130],
           type: "bar",
         },
       ],
@@ -33,7 +34,7 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <div id="main" style={{ width: "500px", height: "400px" }}></div>
+      <div ref={chartRef} style={{ width: "500px", height: "400px" }}></div>
     </div>
   );
 };
