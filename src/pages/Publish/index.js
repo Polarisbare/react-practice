@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:18:02
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-12 09:52:45
+ * @LastEditTime: 2024-03-12 10:03:10
  * @FilePath: /react-practice/src/pages/Publish/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,7 +23,7 @@ import "./index.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState, useEffect } from "react";
-import { getChannelAPI } from "@/apis/article";
+import { getChannelAPI, createArticleAPI } from "@/apis/article";
 
 const { Option } = Select;
 
@@ -37,6 +37,22 @@ const Publish = () => {
     };
     getChannelList();
   }, []);
+  // 提交表单
+  const onFinish = (formValue) => {
+    console.log("=========>", formValue);
+    const { title, content, channel_id } = formValue;
+    // 按照接口文档处理收集的数据
+    const reqData = {
+      title,
+      content,
+      cover: {
+        type: 0,
+        images: [],
+      },
+      channel_id,
+    };
+    createArticleAPI(reqData);
+  };
   return (
     <div className="publish">
       <Card
@@ -53,6 +69,7 @@ const Publish = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 1 }}
+          onFinish={onFinish}
         >
           <Form.Item
             label="标题"
