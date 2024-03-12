@@ -2,13 +2,13 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 10:31:40
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-11 09:03:21
+ * @LastEditTime: 2024-03-12 09:13:56
  * @FilePath: /react-practice/src/store/modules/user.js
  * @Description: 用户相关
  */
 import { createSlice } from "@reduxjs/toolkit";
-import { request } from "@/utils";
 import { setToken as _setToken, getToken, removeToken } from "@/utils";
+import { loginAPI, getProfileAPI } from "@/apis/user";
 const userStore = createSlice({
   name: "user",
   // 数据状态
@@ -47,7 +47,7 @@ const userReducer = userStore.reducer;
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     // 1.发送异步请求
-    const res = await request.post("/authorizations", loginForm);
+    const res = await loginAPI(loginForm);
     // 2.提交同步actions进行token的存入
     dispatch(setToken(res.data.token));
   };
@@ -55,7 +55,7 @@ const fetchLogin = (loginForm) => {
 // 异步方法 获取个人信息
 const fetchUserInfo = (loginForm) => {
   return async (dispatch) => {
-    const res = await request.get("/user/profile");
+    const res = await getProfileAPI();
     dispatch(setUserInfo(res.data));
   };
 };
