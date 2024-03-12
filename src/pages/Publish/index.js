@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:18:02
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-12 10:06:40
+ * @LastEditTime: 2024-03-12 10:15:34
  * @FilePath: /react-practice/src/pages/Publish/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -53,6 +53,12 @@ const Publish = () => {
     };
     createArticleAPI(reqData);
   };
+  // 上传图片
+  const [imagesList, setImagesList] = useState([]);
+  const onChange = (value) => {
+    console.log(value);
+    setImagesList(value.fileList);
+  };
   return (
     <div className="publish">
       <Card
@@ -99,7 +105,16 @@ const Publish = () => {
                 <Radio value={0}>无图</Radio>
               </Radio.Group>
             </Form.Item>
-            <Upload listType="picture-card" showUploadList>
+            {/* listType 决定文件框的外观样式
+            showUploadList 控制显示上传列表
+             */}
+            <Upload
+              listType="picture-card"
+              showUploadList
+              action={"http://geek.itheima.net/v1_0/upload"}
+              name="image"
+              onChange={onChange}
+            >
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
               </div>
