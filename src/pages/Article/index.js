@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:17:25
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-14 09:50:19
+ * @LastEditTime: 2024-03-14 10:11:52
  * @FilePath: /react-practice/src/pages/Article/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -93,31 +93,52 @@ const Article = () => {
     },
   ];
   // 准备表格body数据
-  const data = [
-    {
-      id: "8218",
-      comment_count: 0,
-      cover: {
-        images: [],
-      },
-      like_count: 0,
-      pubdate: "2019-03-11 09:00:00",
-      read_count: 2,
-      status: 2,
-      title: "wkwebview离线化加载h5资源解决方案",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: "8218",
+  //     comment_count: 0,
+  //     cover: {
+  //       images: [],
+  //     },
+  //     like_count: 0,
+  //     pubdate: "2019-03-11 09:00:00",
+  //     read_count: 2,
+  //     status: 2,
+  //     title: "wkwebview离线化加载h5资源解决方案",
+  //   },
+  // ];
+  // 筛选功能
+  const [reqData, setReqData] = useState({
+    status: "",
+    channel_id: "",
+    begin_pubdate: "",
+    end_pubdate: "",
+    page: 1,
+    per_page: 4,
+  });
   // 获取文章列表
   const [list, setList] = useState([]);
   const [count, setCount] = useState(0);
   useEffect(() => {
     async function getList() {
-      const res = await getArticleListAPI();
+      const res = await getArticleListAPI(reqData);
       setList(res.data.results);
       setCount(res.data.total_count);
     }
     getList();
-  }, []);
+  }, [reqData]);
+
+  // 获取当前数据
+  const onFinish = (formValue) => {
+    setReqData({
+      ...reqData,
+      channel_id: formValue.channel_id,
+      status: formValue.status,
+      begin_pubdate: formValue.date[0].format("YYYY-MM-DD"),
+      end_pubdate: formValue.date[1].format("YYYY-MM-DD"),
+    });
+    // 重新渲染table useEffect依赖项变化也变化
+  };
 
   return (
     <div>
@@ -132,7 +153,7 @@ const Article = () => {
         }
         style={{ marginBottom: 20 }}
       >
-        <Form initialValues={{ status: "" }}>
+        <Form initialValues={{ status: "" }} onFinish={onFinish}>
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={""}>全部</Radio>
