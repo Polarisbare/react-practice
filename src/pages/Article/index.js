@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:17:25
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-14 09:25:39
+ * @LastEditTime: 2024-03-14 09:39:27
  * @FilePath: /react-practice/src/pages/Article/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -24,7 +24,8 @@ import locale from "antd/es/date-picker/locale/zh_CN";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import img404 from "@/assets/error.png";
 import { useChannel } from "@/hooks/useChannel";
-//
+import { getArticleListAPI } from "@/apis/article";
+import { useEffect, useState } from "react";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -98,6 +99,17 @@ const Article = () => {
       title: "wkwebview离线化加载h5资源解决方案",
     },
   ];
+  // 获取文章列表
+  const [list, setList] = useState([]);
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    async function getList() {
+      const res = await getArticleListAPI();
+      setList(res.data.results);
+      setCount(res.data.total_count);
+    }
+    getList();
+  }, []);
 
   return (
     <div>
@@ -148,8 +160,8 @@ const Article = () => {
         </Form>
       </Card>
       {/* 表格区域 */}
-      <Card title={`根据筛选条件共查询到 count 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={data} />
+      <Card title={`根据筛选条件共查询到 ${count} 条结果：`}>
+        <Table rowKey="id" columns={columns} dataSource={list} />
       </Card>
     </div>
   );
