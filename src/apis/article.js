@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-12 09:46:07
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-15 09:32:21
+ * @LastEditTime: 2024-03-15 10:24:45
  * @FilePath: /react-practice/src/apis/article.js
  * @Description: 文章相关所有请求
  */
@@ -43,5 +43,14 @@ export function getArticleById(id) {
   return request({
     url: `/mp/articles/${id}`,
     method: "GET",
+  });
+}
+
+// 编辑接口
+export function updateArticleAPI(data) {
+  return request({
+    url: `/mp/articles/${data.id}?draft=false`,
+    method: "PUT",
+    data,
   });
 }
