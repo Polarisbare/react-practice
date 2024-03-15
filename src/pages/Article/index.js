@@ -2,11 +2,11 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:17:25
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-15 09:16:12
+ * @LastEditTime: 2024-03-15 09:23:32
  * @FilePath: /react-practice/src/pages/Article/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   Breadcrumb,
@@ -33,6 +33,7 @@ const { RangePicker } = DatePicker;
 
 const Article = () => {
   const { channelList } = useChannel();
+  const navigate = useNavigate();
   // 定义枚举
   const status = {
     1: <Tag color="warning">待审核</Tag>,
@@ -82,12 +83,18 @@ const Article = () => {
       render: (data) => {
         return (
           <Space size="middle">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => navigate(`/publish?id=${data.id}`)}
+            />
             <Popconfirm
               title="删除文章"
               description="确认删除吗"
               onConfirm={() => onConfirm(data)}
-              okText="Yes"
+              okTe
+              xt="Yes"
               cancelText="No"
             >
               <Button
