@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-11 09:48:56
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-11 09:54:45
+ * @LastEditTime: 2024-03-15 11:15:12
  * @FilePath: /react-practice/src/pages/Home/components/BarChart.js
  * @Description: 柱状图组件
  */
@@ -31,7 +31,7 @@ const BarChart = ({ title }) => {
     };
     // 使用图表参数完成渲染
     option && myChart.setOption(option);
-  }, []);
+  }, [title]);
   return <div ref={chartRef} style={{ width: "500px", height: "400px" }}></div>;
 };
 export default BarChart;
