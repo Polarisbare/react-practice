@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:17:25
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-14 10:23:31
+ * @LastEditTime: 2024-03-15 09:16:12
  * @FilePath: /react-practice/src/pages/Article/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,6 +18,7 @@ import {
   Table,
   Tag,
   Space,
+  Popconfirm,
 } from "antd";
 // 汉化包
 import locale from "antd/es/date-picker/locale/zh_CN";
@@ -26,6 +27,7 @@ import img404 from "@/assets/error.png";
 import { useChannel } from "@/hooks/useChannel";
 import { getArticleListAPI } from "@/apis/article";
 import { useEffect, useState } from "react";
+import { delArticleAPI } from "@/apis/article";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -81,12 +83,20 @@ const Article = () => {
         return (
           <Space size="middle">
             <Button type="primary" shape="circle" icon={<EditOutlined />} />
-            <Button
-              type="primary"
-              danger
-              shape="circle"
-              icon={<DeleteOutlined />}
-            />
+            <Popconfirm
+              title="删除文章"
+              description="确认删除吗"
+              onConfirm={() => onConfirm(data)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
           </Space>
         );
       },
@@ -144,6 +154,13 @@ const Article = () => {
     setReqData({
       ...reqData,
       page,
+    });
+  };
+  // 删除
+  const onConfirm = async (data) => {
+    await delArticleAPI(data.id);
+    setReqData({
+      ...reqData,
     });
   };
   return (

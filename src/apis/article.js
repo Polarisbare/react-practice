@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-12 09:46:07
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-14 09:34:57
+ * @LastEditTime: 2024-03-15 09:09:49
  * @FilePath: /react-practice/src/apis/article.js
  * @Description: 文章相关所有请求
  */
@@ -29,5 +29,12 @@ export function getArticleListAPI(params) {
     url: "/mp/articles",
     method: "GET",
     params,
+  });
+}
+// 删除文章
+export function delArticleAPI(id) {
+  return request({
+    url: `/mp/articles/${id}`,
+    method: "DELETE",
   });
 }
