@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:18:02
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-15 09:54:19
+ * @LastEditTime: 2024-03-15 10:00:02
  * @FilePath: /react-practice/src/pages/Publish/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -82,6 +82,8 @@ const Publish = () => {
         })
       );
     }
+    // 回填 如果有id就调用
+    if (!articleId) return;
     getArticleDetail();
   }, [articleId, form]);
   return (
