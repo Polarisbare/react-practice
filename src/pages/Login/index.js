@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-06 09:05:09
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-06 11:31:35
+ * @LastEditTime: 2024-03-15 10:45:03
  * @FilePath: /react-practice/src/pages/Login/index.js
  * @Description: Login
  */
@@ -17,7 +17,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onFinish = async (values) => {
-    console.log("=========>", values);
     await dispatch(fetchLogin(values));
     // 跳转首页并提示
     navigate("/");
