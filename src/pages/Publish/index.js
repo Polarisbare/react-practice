@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-03-08 09:18:02
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-14 09:22:17
+ * @LastEditTime: 2024-03-15 09:38:32
  * @FilePath: /react-practice/src/pages/Publish/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -19,12 +19,12 @@ import {
   message,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "./index.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useState } from "react";
-import { createArticleAPI } from "@/apis/article";
+import { useEffect, useState } from "react";
+import { createArticleAPI, getArticleById } from "@/apis/article";
 import { useChannel } from "@/hooks/useChannel";
 
 const { Option } = Select;
@@ -58,9 +58,21 @@ const Publish = () => {
   // 切换封面类型
   const [imageType, setImagesType] = useState(0);
   const onTypeChange = (e) => {
-    console.log(e.target.value);
     setImagesType(e.target.value);
   };
+
+  // 数据回填
+  const [searchParams] = useSearchParams();
+  const articleId = searchParams.get("id");
+  // 获取实例
+  const [form] = Form.useForm();
+  useEffect(() => {
+    async function getArticleDetail() {
+      const res = await getArticleById(articleId);
+      form.setFieldsValue(res.data);
+    }
+    getArticleDetail();
+  }, [articleId, form]);
   return (
     <div className="publish">
       <Card
@@ -78,6 +90,7 @@ const Publish = () => {
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 0 }}
           onFinish={onFinish}
+          form={form}
         >
           <Form.Item
             label="标题"
